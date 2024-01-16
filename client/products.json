@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Computadora prueba uno", 
+        "price": 201,
+        "description": "Esta es una computadora prueba uno",
+        "quantity": 1
+    },
+    {
+        "title": "Computadora prueba dos", 
+        "price": 202,
+        "description": "Esta es una computadora prueba dos",
+        "quantity": 2
+    },
+    {
+        "title": "Computadora prueba tres", 
+        "price": 203,
+        "description": "Esta es una computadora prueba tres",
+        "quantity": 3
+    },
+    {
+        "title": "Computadora prueba cuatro", 
+        "price": 204,
+        "description": "Esta es una computadora prueba cuatro",
+        "quantity": 4
+    },
+    {
+        "title": "Computadora prueba cinco", 
+        "price": 205,
+        "description": "Esta es una computadora prueba cinco",
+        "quantity": 5
+    }
+]

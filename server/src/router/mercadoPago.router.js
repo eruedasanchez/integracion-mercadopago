@@ -1,3 +1,5 @@
+// archivo mercadopago.router.js
+
 import express from 'express';
 import mercadopago from 'mercadopago';
 import dotenv from 'dotenv';
@@ -14,20 +16,30 @@ mercadopago.configure({
 // creamos el endpoint POST para poder enviarle la data a MP
 router.post('/', async (req,res) => {
     try {
-        const products = req.body;
-        console.log('products:', products);
+        const product = req.body;
+        console.log('products:', product);
         // creacion del array de productos que se le envia a MP para procesar la compra
         const preference = {
-            items: products.map(product => {
-                const item = {
+            items: [
+                {
                     title: product.title, 
                     unit_price: product.price,
                     currency_id: 'ARS',
                     description: product.description,
                     quantity: product.quantity
                 }
-                return item;
-            }), 
+            ],
+        // const preference = {
+        //     items: products.map(product => {
+        //         const item = {
+        //             title: product.title, 
+        //             unit_price: product.price,
+        //             currency_id: 'ARS',
+        //             description: product.description,
+        //             quantity: product.quantity
+        //         }
+        //         return item;
+        //     }), 
             // [
             //     {
             //         title: 'Computadora prueba uno', 
@@ -47,17 +59,20 @@ router.post('/', async (req,res) => {
             //     }
             // ],
             back_urls: {
-                success: 'http://localhost:3000/success',
+                success: 'http://localhost:5173/',
                 failure: 'http://localhost:3000/failure'
             },
             auto_return: 'approved'
         }
 
-        // const responseMP = await mercadopago.preferences.create(preference);
-        const { response } = await mercadopago.preferences.create(preference);
-        console.log('response:', response.init_point);
+        const responseMP = await mercadopago.preferences.create(preference);
+        // const { response } = await mercadopago.preferences.create(preference);
+        // console.log('responseMP:', responseMP);
+        console.log('response back:', responseMP.response.init_point);
         
-        return res.status(201).json({respuestaMP: response.init_point});
+        // return res.redirect(responseMP.response.init_point);
+        // return res.status(201).json({respuestaMP: responseMP.response.init_point});
+        return res.status(201).json(responseMP.response.init_point);
     } catch (error) {
         console.log(error.message);
         res.status(500).json(error.message);
